@@ -23,7 +23,8 @@ app.post('/ask', async (req, res) => {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        model: 'grok-4.20-0309-non-reasoning',   // Current stable model as of March 2026
+        model: 'grok-4-1-fast-non-reasoning',
+      //  model: 'grok-4.20-0309-non-reasoning',   // Current stable model as of March 2026
         messages: [{ role: 'user', content: question }],
         max_tokens: 300,
         temperature: 0.7
