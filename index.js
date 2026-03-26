@@ -19,7 +19,8 @@ app.post('/ask', async (req, res) => {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-	model: 'grok-4.20-non-reasoning',   // Fast and reliable for general chat
+        model: 'grok-4.20-0309-non-reasoning',
+	// model: 'grok-4.20-non-reasoning',   // Fast and reliable for general chat
         // model: 'grok-4',
         messages: [{ role: 'user', content: question }],
         max_tokens: 400,
