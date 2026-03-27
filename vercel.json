@@ -8,8 +8,16 @@
   ],
   "routes": [
     {
+      "src": "/sinewave.space.scripting.txt",
+      "dest": "/sinewave.space.scripting.txt"
+    },
+    {
+      "src": "/ask",
+      "dest": "/index.js"
+    },
+    {
       "src": "/(.*)",
-      "dest": "index.js"
+      "dest": "/index.js"
     }
   ]
 }
