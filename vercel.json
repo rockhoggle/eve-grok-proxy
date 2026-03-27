@@ -8,7 +8,7 @@
   ],
   "routes": [
     {
-      "src": "/sinewave.space.scripting.txt",
+      "src": "/sinewave\\.space\\.scripting\\.txt",
       "dest": "/sinewave.space.scripting.txt"
     },
     {
