@@ -12,6 +12,10 @@
   ],
   "routes": [
     {
+      "src": "/sinewave\\.space\\.scripting\\.txt",
+      "dest": "/public/sinewave.space.scripting.txt"
+    },
+    {
       "src": "/ask",
       "dest": "/index.js"
     },
