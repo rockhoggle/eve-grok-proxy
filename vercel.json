@@ -2,22 +2,18 @@
   "version": 2,
   "builds": [
     {
-      "src": "api/ask.js",
+      "src": "index.js",
       "use": "@vercel/node"
-    },
-    {
-      "src": "public/**",
-      "use": "@vercel/static"
     }
   ],
   "routes": [
     {
       "src": "/ask",
-      "dest": "/api/ask.js"
+      "dest": "/index.js"
     },
     {
       "src": "/sinewave.space.scripting.txt",
-      "dest": "/public/sinewave.space.scripting.txt"
+      "dest": "/sinewave.space.scripting.txt"
     }
   ]
 }
