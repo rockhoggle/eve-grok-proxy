@@ -1,4 +1,4 @@
-// index.js - Fixed for Render.com
+// index.js - Final Fixed Version for Render.com
 const express = require('express');
 const fetch = require('node-fetch');
 
@@ -39,11 +39,11 @@ app.post('/ask', async (req, res) => {
 
     } catch (error) {
         console.error("Proxy Error:", error.message);
-        res.status(500).send("Proxy had an error");
+        res.status(500).send("Proxy error - check logs");
     }
 });
 
-// THIS IS THE IMPORTANT PART FOR RENDER
+// THIS LINE IS CRITICAL FOR RENDER
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
     console.log(`✅ Grok proxy is running on port ${port}`);
