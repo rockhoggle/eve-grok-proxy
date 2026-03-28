@@ -4,24 +4,16 @@
     {
       "src": "index.js",
       "use": "@vercel/node"
-    },
-    {
-      "src": "public/**",
-      "use": "@vercel/static"
     }
   ],
   "routes": [
     {
-      "src": "/sinewave\\.space\\.scripting\\.txt",
-      "dest": "/public/sinewave.space.scripting.txt"
+      "src": "/sinewave.space.scripting.txt",
+      "dest": "/sinewave.space.scripting.txt"
     },
     {
       "src": "/ask",
       "dest": "/index.js"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/public/$1"
     }
   ]
 }
