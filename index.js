@@ -1,4 +1,4 @@
-// index.js - Final Fixed Version for Render.com
+// index.js - Minimal & Reliable for Render.com
 const express = require('express');
 const fetch = require('node-fetch');
 
@@ -6,6 +6,8 @@ const app = express();
 app.use(express.json());
 
 app.post('/ask', async (req, res) => {
+    console.log("Received POST request to /ask");
+
     try {
         const { question } = req.body;
 
@@ -33,20 +35,19 @@ app.post('/ask', async (req, res) => {
 
         const data = await grokResponse.json();
         const reply = data.choices?.[0]?.message?.content?.trim() 
-                     || "Sorry, I couldn't think of a reply right now.";
+                     || "Sorry, I couldn't generate a reply.";
 
+        console.log("Sending reply:", reply);
         res.send(reply);
 
     } catch (error) {
         console.error("Proxy Error:", error.message);
-        res.status(500).send("Proxy error - check logs");
+        res.status(500).send("Proxy error");
     }
 });
 
-// THIS LINE IS CRITICAL FOR RENDER
+// Start the server - REQUIRED for Render
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
-    console.log(`✅ Grok proxy is running on port ${port}`);
+    console.log(`Grok proxy is running on port ${port}`);
 });
-
-module.exports = app;
