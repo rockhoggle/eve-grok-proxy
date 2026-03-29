@@ -1,4 +1,4 @@
-// index.js - Fixed for plain text response
+// index.js - Force Plain Text Response for SineSpace
 const express = require('express');
 const fetch = require('node-fetch');
 
@@ -6,12 +6,17 @@ const app = express();
 app.use(express.json());
 
 app.post('/ask', async (req, res) => {
+    console.log("Received request from SineSpace");
+
     try {
         const { question } = req.body;
 
         if (!question) {
+            console.log("No question provided");
             return res.send("No question provided");
         }
+
+        console.log("Calling Grok with question:", question);
 
         const grokResponse = await fetch('https://api.x.ai/v1/chat/completions', {
             method: 'POST',
@@ -22,7 +27,7 @@ app.post('/ask', async (req, res) => {
             body: JSON.stringify({
                 model: "grok-4",
                 messages: [{ role: "user", content: question }],
-                max_tokens: 350,
+                max_tokens: 400,
                 temperature: 0.7
             })
         });
@@ -31,17 +36,22 @@ app.post('/ask', async (req, res) => {
         const reply = data.choices?.[0]?.message?.content?.trim() 
                      || "Sorry, I couldn't generate a reply.";
 
-        res.send(reply);   // ← Plain text, no JSON
+        console.log("Grok reply:", reply);
+
+        // Force plain text response
+        res.set('Content-Type', 'text/plain');
+        res.send(reply);
 
     } catch (error) {
-        console.error(error);
-        res.send("Sorry, I had an error.");
+        console.error("Proxy Error:", error.message);
+        res.set('Content-Type', 'text/plain');
+        res.send("Sorry, I had an error processing your request.");
     }
 });
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
-    console.log(`Grok proxy running on port ${port}`);
+    console.log(`✅ Grok proxy is running on port ${port}`);
 });
 
 module.exports = app;
