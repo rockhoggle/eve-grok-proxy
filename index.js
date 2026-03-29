@@ -1,4 +1,4 @@
-// index.js - Minimal & Reliable for Render.com
+// index.js - Fixed for plain text response
 const express = require('express');
 const fetch = require('node-fetch');
 
@@ -6,13 +6,11 @@ const app = express();
 app.use(express.json());
 
 app.post('/ask', async (req, res) => {
-    console.log("Received POST request to /ask");
-
     try {
         const { question } = req.body;
 
         if (!question) {
-            return res.status(400).send("No question provided");
+            return res.send("No question provided");
         }
 
         const grokResponse = await fetch('https://api.x.ai/v1/chat/completions', {
@@ -29,25 +27,21 @@ app.post('/ask', async (req, res) => {
             })
         });
 
-        if (!grokResponse.ok) {
-            throw new Error(`Grok API error: ${grokResponse.status}`);
-        }
-
         const data = await grokResponse.json();
         const reply = data.choices?.[0]?.message?.content?.trim() 
                      || "Sorry, I couldn't generate a reply.";
 
-        console.log("Sending reply:", reply);
-        res.send(reply);
+        res.send(reply);   // ← Plain text, no JSON
 
     } catch (error) {
-        console.error("Proxy Error:", error.message);
-        res.status(500).send("Proxy error");
+        console.error(error);
+        res.send("Sorry, I had an error.");
     }
 });
 
-// Start the server - REQUIRED for Render
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
-    console.log(`Grok proxy is running on port ${port}`);
+    console.log(`Grok proxy running on port ${port}`);
 });
+
+module.exports = app;
